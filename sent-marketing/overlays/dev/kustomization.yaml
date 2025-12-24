@@ -5,7 +5,7 @@ namespace: sent-marketing-dev
 
 resources:
   - ../../base
-  # - namespace.yaml
+  - namespace.yaml
 
 patches:
   - target:
