@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sent-marketing-dev
+
+resources:
+  - ../../base
+  # - namespace.yaml
+
+patches:
+  - target:
+      kind: Deployment
+      name: sent-marketing
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: sentdm/sent-marketing:dev-a1b2c3d
+  - target:
+      kind: Ingress
+      name: sent-marketing
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
+        value: traefik-noindex-dev@kubernetescrd

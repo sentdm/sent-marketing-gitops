@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sent-marketing-prod
+
+resources:
+  - ../../base
+  # - namespace.yaml
+  - hpa.yaml
+
+patches:
+  - target:
+      kind: Deployment
+      name: sent-marketing
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: sentdm/sent-marketing:prod-x9y8z7w
+      - op: replace
+        path: /spec/replicas
+        value: 2
+  - target:
+      kind: Ingress
+      name: sent-marketing
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: sent.dm
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: sent.dm
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: sent.dm-tls

@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sent-marketing
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed.slack: sent-marketing-logs
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sentdm/sent-marketing-gitops.git
+    targetRevision: HEAD
+    path: sent-marketing/overlays/dev
+    directory:
+      recurse: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sent-marketing-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
