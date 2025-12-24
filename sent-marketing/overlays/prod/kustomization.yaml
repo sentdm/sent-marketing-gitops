@@ -5,7 +5,7 @@ namespace: sent-marketing-prod
 
 resources:
   - ../../base
-  # - namespace.yaml
+  - namespace.yaml
   - hpa.yaml
 
 patches:
