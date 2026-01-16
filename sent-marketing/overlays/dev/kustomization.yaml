@@ -14,7 +14,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
-        value: sentdm/sent-marketing:dev-ff3a308
+        value: sentdm/sent-marketing:dev-59420b8
   - target:
       kind: Ingress
       name: sent-marketing
